@@ -1,7 +1,7 @@
 <?php
 
   // API URL
-$url = 'http://lakartxela.iutbayonne.univ-pau.fr/~nvgouvet/PHP/S4/Api/teammates';
+$url = 'http://lakartxela.iutbayonne.univ-pau.fr/~hrgeslin/WebServices/Projet/WebServices_API/teammates.php';
 
 // Create a new cURL resource
 $ch = curl_init($url);

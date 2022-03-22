@@ -1,5 +1,5 @@
 <?php
-  $url = 'http://127.0.0.1/Api/activitesPayantes';
+  $url = 'http://lakartxela.iutbayonne.univ-pau.fr/~hrgeslin/WebServices/Projet/WebServices_API/activitesPayante.php';
   $data = array('id' => 5, 'tarif' => '15');
   // utilisez 'http' même si vous envoyez la requête sur https:// ...
   $options = array(

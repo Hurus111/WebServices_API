@@ -54,15 +54,60 @@
     $response = array();
     $result = mysqli_query($conn, $query);
     
+    $API_KEY = "55865038d4ef6483a53cacdb6a181062"; // Key weatherstack
+
     while($row = mysqli_fetch_assoc($result))
     {
-    
+      
+      // ============ WEATHERSTACK ============ //
+
+      $city = $row['lieu'];
+
+      $url = "http://api.weatherstack.com/current?access_key=$API_KEY&query=$city";
+      $data = file_get_contents($url);
+      $json = json_decode($data);
+
+      $meteo = $json->{'current'}->{'temperature'};
+
+      $row['temperature'] = $meteo;
+
+      // ============ TRAVEL ADVISOR ============ //
+      
+      $curl = curl_init();
+
+      curl_setopt_array($curl, [
+        CURLOPT_URL => "https://travel-advisor.p.rapidapi.com/airports/search?query=$city&lang=en_US&units=km",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => [
+          "x-rapidapi-host: travel-advisor.p.rapidapi.com",
+          "x-rapidapi-key: f978fbe633msh335e80f24b00380p1d3edejsn1afa0e8791ab"
+        ],
+      ]);
+      
+      $aeroport = curl_exec($curl);
+      $err = curl_error($curl);
+      
+      curl_close($curl);
+
+      $json = json_decode($aeroport);
+      if (!isset($json[0]->{'display_name'}) ||empty($json[0]->{'display_name'})) {
+        $row['aeroport'] = null;
+      }else{
+        $row['aeroport'] = $json[0]->{'display_name'};
+      }
+
       $response[] = $row;
   
     }
 
-
-    header('Content-Type: application/json');
+    
+    //header('Content-Type: application/json');
 
     echo json_encode($response,JSON_PRETTY_PRINT);
     
@@ -121,8 +166,26 @@
 
     $data = json_decode($donnees);
 
+    if (!isset($data->{'titre'}) || empty($data->{'titre'})) {
+
+      $url = "https://www.boredapi.com/api/activity";
+      $bored_data = file_get_contents($url);
+      $json = json_decode($bored_data);
+
+      $titre = $json->{'activity'};
+
+
+    }else{
+
+      $titre = $data->{'titre'};
+
+    }
+
+    
+
+
     $a_pour_team_leader_id = $data->{'a_pour_team_leader_id'};
-    $titre = $data->{'titre'};
+    //$titre = $data->{'titre'};
     $date = $data->{'date'};
     $heure_debut = $data->{'heure_debut'};
     $heure_fin = $data->{'heure_fin'};
