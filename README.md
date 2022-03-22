@@ -6,4 +6,4 @@ APIs utilisés pour la réalisation du projet :
   - Travel Advisor https://rapidapi.com/apidojo/api/travel-advisor/
   - Bored Api https://www.boredapi.com/
 
-Hugo RIVAS & Nathan VIERAT-GOUVET
+->Hugo RIVAS & Nathan VIERAT-GOUVET
