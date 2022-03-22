@@ -3,7 +3,7 @@
 $curl = curl_init();
 
 curl_setopt_array($curl, [
-	CURLOPT_URL => "https://hotels4.p.rapidapi.com/locations/v2/search?query=new%20york&locale=en_US&currency=USD",
+	CURLOPT_URL => "https://travel-advisor.p.rapidapi.com/locations/v2/auto-complete?query=Biarritz&lang=en_US&units=km",
 	CURLOPT_RETURNTRANSFER => true,
 	CURLOPT_FOLLOWLOCATION => true,
 	CURLOPT_ENCODING => "",
@@ -12,7 +12,7 @@ curl_setopt_array($curl, [
 	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 	CURLOPT_CUSTOMREQUEST => "GET",
 	CURLOPT_HTTPHEADER => [
-		"x-rapidapi-host: hotels4.p.rapidapi.com",
+		"x-rapidapi-host: travel-advisor.p.rapidapi.com",
 		"x-rapidapi-key: f978fbe633msh335e80f24b00380p1d3edejsn1afa0e8791ab"
 	],
 ]);
@@ -27,5 +27,3 @@ if ($err) {
 } else {
 	echo $response;
 }
-
-?>
