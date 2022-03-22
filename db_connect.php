@@ -1,8 +1,8 @@
 <?php
-    $server = "localhost";
-    $username = "root";
-    $password = "";
-    $db = "bd_teamup";
+    $server = "lakartxela.iutbayonne.univ-pau.fr";
+    $username = "nvgouvet_pro";
+    $password = "nvgouvet_pro";
+    $db = "nvgouvet_pro";
 
     $conn = mysqli_connect($server,$username,$password,$db);
 
